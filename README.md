@@ -4,10 +4,13 @@
 
 ### 프로젝트 실행
 
-<br>
-<br>
-<br>
-<br>
+```bash
+git clone https://github.com/ptp-templates/electron-react-typescript {app name}
+
+yarn install
+yarn start
+```
+
 <br>
 <br>
 <br>
@@ -17,12 +20,8 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
 
-### 프로젝트 세팅
+### 프로젝트 세팅 (CLI 입력 필요 없음)
 
 ```bash
 npx create-react-app {app name} --template typescript
