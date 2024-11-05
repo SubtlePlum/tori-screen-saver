@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Electron + React + Typescript template
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **Electron**: HTML, CSS, Javascript와 같은 기본적인 웹 지식으로도 데스크탑 애플리케이션을 만들 수 있는 프레임워크.
 
-## Available Scripts
+### 프로젝트 실행
 
-In the project directory, you can run:
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 프로젝트 세팅
 
-### `npm test`
+```bash
+npx create-react-app {app name} --template typescript
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+yarn add electron-is-dev
+yarn add electron electron-builder concurrently cross-env wait-on
+```
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- electron-is-dev
+  - 개발 환경과 프로덕션 환경을 확인
+- electron
+  - 일렉트론 패키지
+- electron-builder
+  - 일렉트론을 패키징하는 모듈. 다양한 옵션 사용 가능
+- concurrently
+  - 두 개 이상의 명령어를 하나의 스크립트에서 실행할 수 있음
+- cross-env
+  - 운영체제마다 다른 환경변수 설정을 통일시켜줌
+- wait-on
+  - Node 환경에서 파나 이상의 포트, 소켓같은 자원이 사용 가능해질 때까지 대기하도록 지연시키는 모듈
