@@ -5,7 +5,6 @@ import { Modal } from "./modal";
 import { ImgHandle } from "./imgHandle";
 import { useContextValue } from "../context/context";
 import { showCustomAlert } from "./alert/custemAlert";
-import { CustomAlert } from "./alert/custemAlert";
 
 export const Feature = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,10 +36,19 @@ export const Feature = () => {
 
   const value = useContextValue();
   const screenSaveStart = () => {
-    showCustomAlert((res) => {
-      console.log(res);
-      return res;
-    });
+    if (value === "") {
+      showCustomAlert("비밀번호를 확인해주세요", 1, (res) => {
+        console.log(res);
+        return res;
+      });
+    } else {
+      showCustomAlert("화면을 잠굴까요?", 2, (res) => {
+        if (res) {
+          window.open("#lock");
+        }
+        return res;
+      });
+    }
   };
 
   return (
@@ -60,7 +68,6 @@ export const Feature = () => {
         isModalOpen={isModalOpen}
         modalHandler={setIsModalOpen}
       />
-      <CustomAlert msg="화면을 잠굴까요?" buttons={2} />
     </Content>
   );
 };

@@ -4,6 +4,7 @@ import { Home } from "./page/home";
 import { Password } from "./page/password";
 import { ScreenLock } from "./page/screenLock";
 import { PasswordContext } from "./context/context";
+import { CustomAlert } from "./components/alert/custemAlert";
 
 export const App = () => {
   return (
@@ -15,6 +16,7 @@ export const App = () => {
             <Route path="/password" element={<Password />} />
             <Route path="/lock" element={<ScreenLock />} />
           </Routes>
+          <CustomAlert />
         </Main>
       </PasswordContext>
     </Router>

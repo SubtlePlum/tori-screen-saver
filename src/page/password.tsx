@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useContextUpdate } from "../context/context";
+import { showCustomAlert } from "../components/alert/custemAlert";
 
 export const Password = () => {
   const [isPasswordInit, setIsPasswordInit] = useState(false);
@@ -24,7 +25,10 @@ export const Password = () => {
     isPasswordSame: "",
   };
 
-  const [password, setPassword] = useState(passwordData);
+  const [
+    { password, passwordCheck, isPosiblePassword, isPasswordSame },
+    setPassword,
+  ] = useState(passwordData);
 
   type onChangeInput = React.ChangeEvent<HTMLInputElement>;
   const onChangeHandler = (e: onChangeInput) => {
@@ -40,24 +44,31 @@ export const Password = () => {
         name === "password"
           ? passwordRegExp.test(value)
           : passwordRegExp.test(prev.password),
-      isPasswordSame:
-        name === "password"
-          ? value === prev.passwordCheck
-          : value === prev.password,
     }));
   };
 
+  useEffect(() => {
+    console.log(password);
+    if (isPosiblePassword && password === passwordCheck) {
+      setPassword((prev) => ({ ...prev, isPasswordSame: true }));
+    }
+  }, [password, passwordCheck]);
+
   const savePassword = () => {
-    if (
-      password.isPasswordSame === true &&
-      password.isPosiblePassword === true
-    ) {
-      if (window.confirm("비밀번호를 저장할까요?")) {
-        // update(password.password);
-        alert("저장 완료");
-      }
+    if (isPasswordSame === true && isPosiblePassword === true) {
+      showCustomAlert("비밀번호를 저장할까요?", 2, (res) => {
+        if (res) {
+          update(isPosiblePassword);
+          showCustomAlert("저장 완료", 1, (res) => {
+            return res;
+          });
+        }
+        return res;
+      });
     } else {
-      alert("비밀번호를 확인해주세요");
+      showCustomAlert("비밀번호를 확인해주세요", 1, (res) => {
+        return res;
+      });
     }
   };
 
@@ -78,9 +89,9 @@ export const Password = () => {
           />
           <span
             style={
-              password.isPosiblePassword === ""
+              isPosiblePassword === ""
                 ? { color: "black" }
-                : password.isPosiblePassword
+                : isPosiblePassword
                 ? { color: "#99ff99" }
                 : { color: "#ff4040" }
             }
@@ -92,12 +103,12 @@ export const Password = () => {
           <input
             onChange={onChangeHandler}
             type="password"
-            name="password-check"
+            name="passwordCheck"
             minLength={6}
             maxLength={16}
             placeholder="비밀번호 확인"
           />
-          {password.isPasswordSame ? (
+          {isPasswordSame ? (
             <span style={{ color: "#99ff99" }}>비밀번호가 일치합니다</span>
           ) : (
             <span style={{ color: "#ff4040" }}>비밀번호를 확인해주세요</span>
@@ -149,7 +160,7 @@ export const PasswordWrap = styled.div<{ isPasswordInit: boolean }>`
   visibility: ${(props) => (props.isPasswordInit ? "visible" : "hidden")};
   animation: ${(props) =>
       props.isPasswordInit ? "screenRollDown" : "screenRollUp"}
-    0.2s;
+    0.3s;
   @keyframes screenRollUp {
     0% {
       visibility: visible;
@@ -159,9 +170,7 @@ export const PasswordWrap = styled.div<{ isPasswordInit: boolean }>`
       height: 0px;
       visibility: hidden;
     }
-    99% {
-      visibility: hidden;
-    }
+
     100% {
       display: none;
     }
@@ -173,9 +182,6 @@ export const PasswordWrap = styled.div<{ isPasswordInit: boolean }>`
     }
     50% {
       height: 150px;
-      visibility: visible;
-    }
-    99% {
       visibility: visible;
     }
     100% {

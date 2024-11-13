@@ -1,15 +1,21 @@
 import styled from "styled-components";
 
-interface Props {
-  msg: string;
-  buttons: number;
-}
-
-export const showCustomAlert = (callback: (bool: boolean) => {}) => {
+export const showCustomAlert = (
+  msg: string,
+  btn: number,
+  callback: (bool: boolean) => {}
+) => {
   const alertContainer = document.getElementById("customAlert") as HTMLElement;
+  const msgBox = document.getElementById("msgBox") as HTMLElement;
   const yesButton = document.getElementById("okButton") as HTMLElement;
   const noButton = document.getElementById("cancleButton") as HTMLElement;
+
+  if (btn === 1) {
+    noButton.style.display = "none";
+  }
+  msgBox.textContent = msg;
   alertContainer.style.display = "flex";
+
   yesButton.onclick = () => {
     alertContainer.style.display = "none";
     callback(true);
@@ -19,18 +25,13 @@ export const showCustomAlert = (callback: (bool: boolean) => {}) => {
     callback(false);
   };
 };
-export const CustomAlert = ({ msg, buttons }: Props) => {
+export const CustomAlert = () => {
   return (
     <AlertContainer id="customAlert">
       <AlertBox>
-        <p>{msg}</p>
+        <p id="msgBox"></p>
         <button id="okButton">확인</button>
-        <button
-          style={buttons === 1 ? { display: "none" } : {}}
-          id="cancleButton"
-        >
-          취소
-        </button>
+        <button id="cancleButton">취소</button>
       </AlertBox>
     </AlertContainer>
   );
