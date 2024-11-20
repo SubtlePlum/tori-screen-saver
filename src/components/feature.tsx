@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import { Lock } from "./svg/lock";
 import { useState } from "react";
-import { Modal } from "./modal";
 import { ImgHandle } from "./imgHandle";
 import { useContextValue } from "../context/context";
 import { showCustomAlert } from "./alert/custemAlert";
+import { useNavigate } from "react-router-dom";
+import { Modal } from "./modal";
+import { useModalHandler } from "../hooks/useModalHandler";
 
 export const Feature = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isModalOpen, openModal, closeModal } = useModalHandler();
   const [imgSrc, setImgSrc] = useState<string | any>("/image/basic-img.png");
 
   const setBasicImg = () => {
     setImgSrc("/image/basic-img.png");
-    setIsModalOpen(false);
+    closeModal();
   };
 
   const setCustomImg = (e: any) => {
@@ -24,27 +27,23 @@ export const Feature = () => {
       reader.onload = () => {
         const imageUrl = reader.result;
         setImgSrc(imageUrl);
-
-        setIsModalOpen(false);
+        closeModal();
       };
     });
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
   };
 
   const value = useContextValue();
   const screenSaveStart = () => {
     if (value === "") {
       showCustomAlert("비밀번호를 확인해주세요", 1, (res) => {
-        console.log(res);
         return res;
       });
     } else {
       showCustomAlert("화면을 잠굴까요?", 2, (res) => {
         if (res) {
-          window.open("#lock");
+          localStorage.setItem("imgSrc", JSON.stringify(imgSrc));
+          // window.open("#lock");
+          navigate("/lock");
         }
         return res;
       });
@@ -66,7 +65,7 @@ export const Feature = () => {
           <ImgHandle setBasicImg={setBasicImg} setCustomImg={setCustomImg} />
         }
         isModalOpen={isModalOpen}
-        modalHandler={setIsModalOpen}
+        closeModal={closeModal}
       />
     </Content>
   );

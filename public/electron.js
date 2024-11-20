@@ -10,6 +10,7 @@ function createWindow() {
     height: 680,
     minWidth: 600,
     minHeight: 500,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,

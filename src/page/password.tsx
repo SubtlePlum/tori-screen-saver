@@ -48,9 +48,10 @@ export const Password = () => {
   };
 
   useEffect(() => {
-    console.log(password);
     if (isPosiblePassword && password === passwordCheck) {
       setPassword((prev) => ({ ...prev, isPasswordSame: true }));
+    } else {
+      setPassword((prev) => ({ ...prev, isPasswordSame: false }));
     }
   }, [password, passwordCheck]);
 

@@ -4,16 +4,12 @@ import styled from "styled-components";
 interface Props {
   content: React.ReactNode;
   isModalOpen: boolean;
-  modalHandler: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: () => void;
 }
 
-export const Modal = ({ content, isModalOpen, modalHandler }: Props) => {
+export const Modal = ({ content, isModalOpen, closeModal }: Props) => {
   const eventBlock = (e: any) => {
     e.stopPropagation();
-  };
-
-  const closeModal = () => {
-    modalHandler(false);
   };
 
   return (
